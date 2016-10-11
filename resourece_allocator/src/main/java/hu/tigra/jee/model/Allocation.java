@@ -1,11 +1,13 @@
 package hu.tigra.jee.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.annotation.Generated;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
@@ -29,14 +31,34 @@ public class Allocation extends EqualsById implements Serializable {
 
     @NotNull
     @NotEmpty
-    @Pattern(regexp = "[a-zA-Z0-9.-]+@[a-zA-Z0-9.-].[a-zA-Z0-9.-]",message = "Wrong e-mail, pleas try again!")
+    @Email
     private String email;
 
     @NotNull
-    private Date start;
+    //@Size(min = 1 , max = 12)
+    private String start;
 
     @NotNull
-    private Date end;
+   // @Size(min = 1 , max = 12)
+    private String end;
+    /*
+    @NotNull
+    @Size(min = 1 , max = 12)
+    private String startMonth;
+
+    @NotNull
+    @Size(min = 1 , max = 12)
+    private String  endMonth;
+
+    @NotNull
+    @Size(min = 1 , max = 31)
+    private String startDay;
+
+    @NotNull
+    @Size(min = 1 , max = 31)
+    private String endDay;
+*/
+
 
     @Override
     public Long getId() {
@@ -63,20 +85,52 @@ public class Allocation extends EqualsById implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+/*
+    public int getStartMonth() {
+        return Integer.parseInt(startMonth);
+    }
 
-    public Date getStart() {
+    public void setStartMonth(int startMonth) {
+        this.startMonth = String.valueOf(startMonth);
+    }
+
+    public int getEndMonth() {
+        return Integer.parseInt(endDay);
+    }
+
+    public void setEndMonth(int endMonth) {
+        this.endDay = String.valueOf(endMonth);
+    }
+
+    public int getStartDay() {
+        return Integer.parseInt(startDay);
+    }
+
+    public void setStartDay(int startDay) {
+        this.startDay = String.valueOf(startDay);
+    }
+
+    public int getEndDay() {
+        return Integer.parseInt(endDay);
+    }
+
+    public void setEndDay(int endDay) {
+        this.endDay = String.valueOf(endDay);
+    }*/
+
+    public String getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 }

@@ -27,7 +27,7 @@ public class AllocationRegistration {
     private Event<Allocation> allocationEventSrc;
 
     public void register(Allocation allocation) throws Exception {
-        log.info("Allocation ends: " + allocation.getEnd());
+        log.info("Allocation ends: " + allocation.getEmail());
         em.persist(allocation);
         allocationEventSrc.fire(allocation);
     }

@@ -13,8 +13,7 @@
             <h:panelGrid columns="3" columnClasses="titleCell">
                 <h:outputLabel for="owner" value="Owner:" />
                 <h:selectOneMenu id="owner" value="#{newCar.owner}">
-                    <f:selectItems value="#{members}"
-                                   var="m"
+                    <f:selectItems value="#{members}" var="m"
                                    itemValue="#{m.id}"
                                    itemLabel="#{m.name}"
                     />

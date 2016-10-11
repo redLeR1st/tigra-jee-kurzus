@@ -45,13 +45,13 @@ public class AllocationRepository {
 
 
     }
-        public List<Allocation> findAllOrderedByEmail() {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Allocation> criteria = cb.createQuery(Allocation.class);
-            Root<Allocation> allocation = criteria.from(Allocation.class);
+    public List<Allocation> findAllOrderedByEmail() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Allocation> criteria = cb.createQuery(Allocation.class);
+        Root<Allocation> allocation = criteria.from(Allocation.class);
 
 
-            criteria.select(allocation).orderBy(cb.asc(allocation.get("email")));
-            return em.createQuery(criteria).getResultList();
+        criteria.select(allocation).orderBy(cb.asc(allocation.get("email")));
+        return em.createQuery(criteria).getResultList();
         }
 }

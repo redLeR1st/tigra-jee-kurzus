@@ -10,7 +10,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.ws.rs.Produces;
+import javax.enterprise.inject.Produces;
+
 
 /**
  * Created by h644771 on 2016. 10. 06..
@@ -25,9 +26,9 @@ public class AllocationContorller {
     @Inject
     private AllocationRegistration allocationRegistration;
 
-   // @Produces
+    @Produces
     @Named
-    private Allocation newAllocation;
+    protected Allocation newAllocation;
 
     @PostConstruct
     public void initNewAllocation() {
