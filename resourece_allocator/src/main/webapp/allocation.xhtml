@@ -4,6 +4,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
         <h1>Allocation list</h1>
@@ -19,6 +20,15 @@
                 <h:inputText id="email" value="#{newAllocation.email}"/>
                 <h:message for="email" errorClass="invalid"/>
 
+                <p:outputLabel for="start" value="Start:" />
+                <p:calendar id="start" value="#{newAllocation.start}" pattern="MM/dd/yyyy HH:mm:ss" />
+                    <br/>
+                <p:outputLabel for="stop" value="Stop:" />
+                <p:calendar id="stop" value="#{newAllocation.end}" pattern="MM/dd/yyyy HH:mm:ss" />
+
+
+
+                <!--
                 <h:outputLabel for="start" value="start:"/>
                 <h:inputText id="start" value="#{newAllocation.start}"/>
                 <h:message for="start" errorClass="invalid"/>
@@ -26,6 +36,7 @@
                 <h:outputLabel for="stop" value="stop:"/>
                 <h:inputText id="stop" value="#{newAllocation.end}"/>
                 <h:message for="stop" errorClass="invalid"/>
+-->
 
             </h:panelGrid>
 
@@ -40,6 +51,8 @@
                 </h:panelGrid>
             </p>
         </h:form>
+
+
 
         <h2>Allocation</h2>
 
@@ -63,7 +76,7 @@
                 #{_allocation.email}
             </h:column>
             <h:column>
-                <f:facet name="header">Start Month</f:facet>
+                <f:facet name="header">Start</f:facet>
                 #{_allocation.start}
             </h:column>
             <h:column>
