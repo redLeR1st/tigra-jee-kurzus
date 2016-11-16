@@ -3,13 +3,12 @@ package hu.tigra.jee.model;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.annotation.Generated;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -36,11 +35,11 @@ public class Allocation extends EqualsById implements Serializable {
 
     @NotNull
     //@Size(min = 1 , max = 12)
-    private String start;
+    private Date start;
 
     @NotNull
    // @Size(min = 1 , max = 12)
-    private String end;
+    private Date end;
     /*
     @NotNull
     @Size(min = 1 , max = 12)
@@ -118,20 +117,26 @@ public class Allocation extends EqualsById implements Serializable {
         this.endDay = String.valueOf(endDay);
     }*/
 
-    public String getStart() {
+    public Date getStart() {
         return start;
     }
 
-    public void setStart(String start) {
-        this.start = start;
+    public void setStart(String start) throws ParseException {
+        SimpleDateFormat ft =
+                new SimpleDateFormat ("MM/dd/yyyy HH:mm:ss");
+
+        this.start = ft.parse(start);
     }
 
-    public String getEnd() {
+    public Date getEnd() {
         return end;
     }
 
-    public void setEnd(String end) {
-        this.end = end;
+    public void setEnd(String end) throws ParseException {
+        SimpleDateFormat ft =
+                new SimpleDateFormat ("MM/dd/yyyy HH:mm:ss");
+
+        this.end = ft.parse(end);
     }
 }
 
