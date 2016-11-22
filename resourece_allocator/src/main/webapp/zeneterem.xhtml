@@ -7,7 +7,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
-        <h1>Zene terem</h1>
+        <h1>Zeneterem</h1>
         <h:form id="reg">
             <h2><![CDATA[Allocation <R></R>egistration]]></h2>
             <h:panelGrid columns="3" columnClasses="titleCell">
@@ -20,11 +20,17 @@
                 <h:inputText id="email" value="#{newAllocation.email}"/>
                 <h:message for="email" errorClass="invalid"/>
 
-                <p:outputLabel for="start" value="Start:" />
-                <p:calendar id="start" value="#{newAllocation.start}" pattern="MM/dd/yyyy HH:mm:ss" />
-                    <br/>
-                <p:outputLabel for="stop" value="Stop:" />
-                <p:calendar id="stop" value="#{newAllocation.end}" pattern="MM/dd/yyyy HH:mm:ss" />
+                <p:outputLabel for="start" value="Date: " />
+                <p:inputMask id="start" value="#{newAllocation.start}" mask="2099-99-99 99:99:99">
+                    <f:converter converterId="myDateTimeConverter"/>
+                </p:inputMask>
+
+                <br/>
+
+                <p:outputLabel for="stop" value="Date: " />
+                <p:inputMask id="stop" value="#{newAllocation.end}" mask="2099-99-99 99:99:99">
+                    <f:converter converterId="myDateTimeConverter"/>
+                </p:inputMask>
 
 
 

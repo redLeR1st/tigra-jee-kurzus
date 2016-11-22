@@ -29,18 +29,33 @@ public class AllocationContorller {
     @Produces
     @Named
     protected Allocation newAllocation;
-
+    protected Allocation newAllocation1;
+    protected Allocation newAllocation2;
     @PostConstruct
+
     public void initNewAllocation() {
         newAllocation = new Allocation();
     }
 
+    public void initNewAllocation1() {
+        newAllocation = new Allocation();
+    }
+
+    public void initNewAllocation2() {
+        newAllocation = new Allocation();
+    }
+
     public  void register() throws Exception {
+
+
         try {
+
             allocationRegistration.register(newAllocation);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful");
             facesContext.addMessage(null, m);
             initNewAllocation();
+
+
         }
         catch (Exception e){
             String errorMessage = getRootErrorMessage(e);
@@ -50,6 +65,38 @@ public class AllocationContorller {
         }
 
     }
+
+    public  void register1() throws Exception {
+        try {
+            allocationRegistration.register(newAllocation1);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful");
+            facesContext.addMessage(null, m);
+            initNewAllocation1();
+        }
+        catch (Exception e){
+            String errorMessage = getRootErrorMessage(e);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registration unsuccessful");
+            facesContext.addMessage(null, m);
+
+        }
+
+    }
+    public  void register2() throws Exception {
+        try {
+            allocationRegistration.register(newAllocation2);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful");
+            facesContext.addMessage(null, m);
+            initNewAllocation2();
+        }
+        catch (Exception e){
+            String errorMessage = getRootErrorMessage(e);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registration unsuccessful");
+            facesContext.addMessage(null, m);
+
+        }
+
+    }
+
     private String getRootErrorMessage(Exception e) {
         // Default to general error message that registration failed.
         String errorMessage = "Registration failed. See server log for more information";

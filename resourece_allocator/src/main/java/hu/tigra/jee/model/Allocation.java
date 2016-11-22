@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -17,12 +16,16 @@ import java.util.Date;
 
 @Entity
 @XmlRootElement
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "Email"))
 public class Allocation extends EqualsById implements Serializable {
 
     @Id
     @GeneratedValue
     private Long id;
+
+   // @NotNull
+ //   @NotEmpty
+   // private String teremTipus;
 
     @NotNull
     @NotEmpty
@@ -121,23 +124,27 @@ public class Allocation extends EqualsById implements Serializable {
         return start;
     }
 
-    public void setStart(String start) throws ParseException {
-        SimpleDateFormat ft =
-                new SimpleDateFormat ("MM/dd/yyyy HH:mm:ss");
-
-        this.start = ft.parse(start);
+    public void setStart(Date start) {
+       this.start=start;
     }
 
     public Date getEnd() {
         return end;
     }
 
-    public void setEnd(String end) throws ParseException {
-        SimpleDateFormat ft =
-                new SimpleDateFormat ("MM/dd/yyyy HH:mm:ss");
+    public void setEnd(Date end){
+        this.end = end;
 
-        this.end = ft.parse(end);
+
     }
+  /*
+    public String getTeremTipus() {
+        return teremTipus;
+    }
+
+    public void setTeremTipus(String teremTipus) {
+        this.teremTipus = teremTipus;
+    }   */
 }
 
 

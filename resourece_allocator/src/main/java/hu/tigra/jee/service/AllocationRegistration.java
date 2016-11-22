@@ -27,9 +27,15 @@ public class AllocationRegistration {
     private Event<Allocation> allocationEventSrc;
 
     public void register(Allocation allocation) throws Exception {
+        if (allocation.getStart().after(allocation.getEnd())){
+            allocation=null;
+        }
+
         log.info("Allocation ends: " + allocation.getEmail());
         em.persist(allocation);
         allocationEventSrc.fire(allocation);
+
+
     }
 
     public Allocation find(Long id) throws Exception{
