@@ -1,7 +1,6 @@
 package hu.tigra.jee.data;
 
 import hu.tigra.jee.model.Allocation;
-import hu.tigra.jee.model.Member;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -24,18 +23,49 @@ public class AllocationListProducer {
 
     private List<Allocation> allocations;
 
+    private List<Allocation> targyaloTerem;
+    private List<Allocation> eloadoTerem;
+    private List<Allocation> zeneTerem;
+
+
+
+
     @Produces
     @Named
     public List<Allocation> getAllocations() {
         return allocations;
     }
     public void onAllocationListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Allocation allocation) {
-        retrieveAllMembersOrderedByName();
+        retrieveAllMembersOrderedByEmail();
     }
 
     @PostConstruct
-    public void retrieveAllMembersOrderedByName() {
+    public void retrieveAllMembersOrderedByEmail() {
         allocations = allocationRepository.findAllOrderedByEmail();
     }
+/***************************************************************/
+
+@Produces
+@Named
+public List<Allocation> getTargyaloTeremList() {
+    targyaloTerem = allocationRepository.findTargyaloTerem();
+    return targyaloTerem;
+}
+
+    @Produces
+    @Named
+    public List<Allocation> getEloadoTeremList() {
+        eloadoTerem = allocationRepository.findEloadoTerem();
+        return eloadoTerem;
+    }
+
+    @Produces
+    @Named
+    public List<Allocation> getZeneTeremList() {
+        zeneTerem = allocationRepository.findZenteTerem();
+        return zeneTerem;
+    }
+
+
 
 }

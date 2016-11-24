@@ -17,4 +17,6 @@
 
 -- You can use this file to load seed data into the database using SQL statements
 insert into Member (id, name, email, phone_number) values (0, 'John Smith', 'john.smith@mailinator.com', '2125551212')
-insert into Allocation (id, subject, email, start, end) values (0, 'PelDA', 'PELDA.PELDA@PELDA.COM', '2011-11-11 23:59:59', '2018-11-11 00:00:00')
+insert into Allocation (teremTipus, id, subject, email, start, end) values ('targyaloterem', 0, 'PelDA', 'PELDA.PELDA@PELDA.COM', '2011-11-11 23:59:59', '2018-11-11 00:00:00')
+insert into Allocation (teremTipus, id, subject, email, start, end) values ('eloadoterem', 1, 'PelDA1', 'PELDA.PELDA1@PELDA.COM', '2011-11-11 23:59:59', '2018-11-11 00:00:00')
+insert into Allocation (teremTipus, id, subject, email, start, end) values ('zeneterem', 2, 'PelDA2', 'PELDA.PELDA2@PELDA.COM', '2011-11-11 23:59:59', '2018-11-11 00:00:00')

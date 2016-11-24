@@ -23,9 +23,8 @@ public class Allocation extends EqualsById implements Serializable {
     @GeneratedValue
     private Long id;
 
-   // @NotNull
- //   @NotEmpty
-   // private String teremTipus;
+    @NotNull
+    private String teremTipus;
 
     @NotNull
     @NotEmpty
@@ -137,14 +136,14 @@ public class Allocation extends EqualsById implements Serializable {
 
 
     }
-  /*
+
     public String getTeremTipus() {
         return teremTipus;
     }
 
     public void setTeremTipus(String teremTipus) {
         this.teremTipus = teremTipus;
-    }   */
+    }
 }
 
 

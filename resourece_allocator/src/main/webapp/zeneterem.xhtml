@@ -9,65 +9,69 @@
     <ui:define name="content">
         <h1>Zeneterem</h1>
         <h:form id="reg">
-            <h2><![CDATA[Allocation <R></R>egistration]]></h2>
+            <h2>Allocation register</h2>
             <h:panelGrid columns="3" columnClasses="titleCell">
 
-                <h:outputLabel for="subjeckt" value="subjeckt:"/>
+                <h:outputLabel for="subjeckt" value="Subjeckt:"/>
                 <h:inputText id="subjeckt" value="#{newAllocation.subject}"/>
                 <h:message for="subjeckt" errorClass="invalid"/>
 
-                <h:outputLabel for="email" value="email:"/>
+                <h:outputLabel for="email" value="Email:"/>
                 <h:inputText id="email" value="#{newAllocation.email}"/>
                 <h:message for="email" errorClass="invalid"/>
 
-                <p:outputLabel for="start" value="Date: " />
-                <p:inputMask id="start" value="#{newAllocation.start}" mask="2099-99-99 99:99:99">
+                <p:outputLabel for="start" value="Start: " />
+                <p:inputMask id="start" value="#{newAllocation.start}" mask="2099-99-99 99:99">
                     <f:converter converterId="myDateTimeConverter"/>
                 </p:inputMask>
 
                 <br/>
 
-                <p:outputLabel for="stop" value="Date: " />
-                <p:inputMask id="stop" value="#{newAllocation.end}" mask="2099-99-99 99:99:99">
+                <p:outputLabel for="stop" value="Stop: " />
+                <p:inputMask id="stop" value="#{newAllocation.end}" mask="2099-99-99 99:99">
                     <f:converter converterId="myDateTimeConverter"/>
                 </p:inputMask>
-
-
-
-                <!--
-                <h:outputLabel for="start" value="start:"/>
-                <h:inputText id="start" value="#{newAllocation.start}"/>
-                <h:message for="start" errorClass="invalid"/>
-
-                <h:outputLabel for="stop" value="stop:"/>
-                <h:inputText id="stop" value="#{newAllocation.end}"/>
-                <h:message for="stop" errorClass="invalid"/>
--->
 
             </h:panelGrid>
 
             <p>
                 <h:panelGrid columns="2">
                     <h:commandButton id="register"
-                                     action="#{allocationContorller.register}"
+                                     action="#{allocationContorller.registerZeneTerem}"
                                      value="Register" styleClass="register"/>
                     <h:messages styleClass="messages"
                                 errorClass="invalid" infoClass="valid"
                                 warnClass="warning" globalOnly="true"/>
+
                 </h:panelGrid>
             </p>
         </h:form>
 
+        <h:form>
+            <h2>Allocation delete</h2>
+            <h:panelGrid columns="3" columnClasses="titleCell">
+
+                <p:selectOneMenu id="zeneTeremList" value="#{newAllocation.id}">
+                    <f:selectItems value="#{zeneTeremList}" var="_allocation"
+                                   itemLabel="#{_allocation.subject}" itemValue="#{_allocation.id}" />
+                </p:selectOneMenu>
+
+                <h:commandButton id="delete"
+                                 action="#{allocationContorller.delete}"
+                                 value="Delete" styleClass="delete"/>
+
+            </h:panelGrid>
+        </h:form>
 
 
         <h2>Allocation</h2>
 
-        <h:panelGroup rendered="#{empty allocations}">
+        <h:panelGroup rendered="#{empty zeneTeremList}">
             <em>No registered allocation.</em>
         </h:panelGroup>
 
-        <h:dataTable var="_allocation" value="#{allocations}"
-                     rendered="#{not empty allocations}"
+        <h:dataTable var="_allocation" value="#{zeneTeremList}"
+                     rendered="#{not empty zeneTeremList}"
                      styleClass="simpletablestyle">
             <h:column>
                 <f:facet name="header">Id</f:facet>

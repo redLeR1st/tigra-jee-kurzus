@@ -1,8 +1,6 @@
 package hu.tigra.jee.service;
 
 import hu.tigra.jee.model.Allocation;
-import hu.tigra.jee.model.Member;
-import sun.rmi.runtime.Log;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -27,9 +25,9 @@ public class AllocationRegistration {
     private Event<Allocation> allocationEventSrc;
 
     public void register(Allocation allocation) throws Exception {
-        if (allocation.getStart().after(allocation.getEnd())){
+       /* if (allocation.getStart().after(allocation.getEnd())){
             allocation=null;
-        }
+        }*/
 
         log.info("Allocation ends: " + allocation.getEmail());
         em.persist(allocation);

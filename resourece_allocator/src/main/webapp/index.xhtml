@@ -9,14 +9,15 @@
     <ui:define name="content">
         <h1>Tárgyalóterem</h1>
         <h:form id="reg">
-            <h2><![CDATA[Allocation <R></R>egistration]]></h2>
+            <h2>Allocation register</h2>
             <h:panelGrid columns="3" columnClasses="titleCell">
 
-                <h:outputLabel for="subjeckt" value="subjeckt:"/>
+
+                <h:outputLabel for="subjeckt" value="Subjeckt:"/>
                 <h:inputText id="subjeckt" value="#{newAllocation.subject}"/>
                 <h:message for="subjeckt" errorClass="invalid"/>
 
-                <h:outputLabel for="email" value="email:"/>
+                <h:outputLabel for="email" value="Email:"/>
                 <h:inputText id="email" value="#{newAllocation.email}"/>
                 <h:message for="email" errorClass="invalid"/>
 
@@ -37,25 +38,41 @@
             <p>
                 <h:panelGrid columns="2">
                     <h:commandButton id="register"
-                                     action="#{allocationContorller.register}"
+                                     action="#{allocationContorller.registerTargyaloTerem}"
                                      value="Register" styleClass="register"/>
                     <h:messages styleClass="messages"
                                 errorClass="invalid" infoClass="valid"
                                 warnClass="warning" globalOnly="true"/>
+
                 </h:panelGrid>
             </p>
         </h:form>
 
+        <h:form>
+            <h2>Allocation delete</h2>
+            <h:panelGrid columns="3" columnClasses="titleCell">
+
+                <p:selectOneMenu id="targyaloTeremList" value="#{newAllocation.id}">
+                    <f:selectItems value="#{targyaloTeremList}" var="_allocation"
+                                   itemLabel="#{_allocation.subject}" itemValue="#{_allocation.id}" />
+                </p:selectOneMenu>
+
+                <h:commandButton id="delete"
+                                 action="#{allocationContorller.delete}"
+                                 value="Delete" styleClass="delete"/>
+
+            </h:panelGrid>
+        </h:form>
 
 
         <h2>Allocation</h2>
 
-        <h:panelGroup rendered="#{empty allocations}">
+        <h:panelGroup rendered="#{empty targyaloTeremList}">
             <em>No registered allocation.</em>
         </h:panelGroup>
 
-        <h:dataTable var="_allocation" value="#{allocations}"
-                     rendered="#{not empty allocations}"
+        <h:dataTable var="_allocation" value="#{targyaloTeremList}"
+                     rendered="#{not empty targyaloTeremList}"
                      styleClass="simpletablestyle">
             <h:column>
                 <f:facet name="header">Id</f:facet>

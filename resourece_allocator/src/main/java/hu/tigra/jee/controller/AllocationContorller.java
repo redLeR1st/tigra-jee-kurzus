@@ -1,8 +1,8 @@
 package hu.tigra.jee.controller;
 
 import hu.tigra.jee.model.Allocation;
+import hu.tigra.jee.service.AllocationDelete;
 import hu.tigra.jee.service.AllocationRegistration;
-import hu.tigra.jee.service.MemberRegistration;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.enterprise.inject.Produces;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -26,29 +27,48 @@ public class AllocationContorller {
     @Inject
     private AllocationRegistration allocationRegistration;
 
+    @Inject
+    private AllocationDelete allocationDelete;
+
     @Produces
     @Named
     protected Allocation newAllocation;
-    protected Allocation newAllocation1;
-    protected Allocation newAllocation2;
-    @PostConstruct
 
+    @PostConstruct
     public void initNewAllocation() {
         newAllocation = new Allocation();
     }
 
-    public void initNewAllocation1() {
-        newAllocation = new Allocation();
+    public void registerTargyaloTerem() throws Exception {
+        newAllocation.setTeremTipus("targyaloterem");
+        register();
     }
-
-    public void initNewAllocation2() {
-        newAllocation = new Allocation();
+    public void registerEloadoTerem() throws Exception {
+        newAllocation.setTeremTipus("eloadoterem");
+        register();
+    }
+    public void registerZeneTerem() throws Exception {
+        newAllocation.setTeremTipus("zeneterem");
+        register();
     }
 
     public  void register() throws Exception {
 
 
         try {
+
+            if(newAllocation.getStart().after(newAllocation.getEnd())){
+                throw new Exception("Hiba! A foglalás befejezte nem lehet hamarabb, mint a kezdete!");
+            }
+
+            long duration = newAllocation.getEnd().getTime() - newAllocation.getStart().getTime();
+            long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+            if(diffInMinutes<15){
+               // String str = Long.toString(diffInMinutes);
+
+                throw new Exception("Hiba! A foglalás legkissebb időtartama 15 perc");
+            }
+
 
             allocationRegistration.register(newAllocation);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful");
@@ -66,35 +86,17 @@ public class AllocationContorller {
 
     }
 
-    public  void register1() throws Exception {
+    public void delete()throws Exception{
         try {
-            allocationRegistration.register(newAllocation1);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful");
+            allocationDelete.delete(newAllocation.getId());
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Allocation deleted!", "Allocation deleted!");
             facesContext.addMessage(null, m);
-            initNewAllocation1();
-        }
-        catch (Exception e){
+            initNewAllocation();
+        }catch (Exception e){
             String errorMessage = getRootErrorMessage(e);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registration unsuccessful");
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Allocation  delete unsuccessful");
             facesContext.addMessage(null, m);
-
         }
-
-    }
-    public  void register2() throws Exception {
-        try {
-            allocationRegistration.register(newAllocation2);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful");
-            facesContext.addMessage(null, m);
-            initNewAllocation2();
-        }
-        catch (Exception e){
-            String errorMessage = getRootErrorMessage(e);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registration unsuccessful");
-            facesContext.addMessage(null, m);
-
-        }
-
     }
 
     private String getRootErrorMessage(Exception e) {

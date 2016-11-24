@@ -1,14 +1,13 @@
 package hu.tigra.jee.data;
 
-import com.sun.prism.shader.AlphaOne_Color_Loader;
 import hu.tigra.jee.model.Allocation;
-import hu.tigra.jee.model.Member;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +44,13 @@ public class AllocationRepository {
 
 
     }
+    public List<Allocation> findAllOrderedByDate() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Allocation> criteria = cb.createQuery(Allocation.class);
+        Root<Allocation> allocationRoot = criteria.from(Allocation.class);
+        criteria.select(allocationRoot).orderBy(cb.asc(allocationRoot.get("start")));
+        return em.createQuery(criteria).getResultList();
+    }
     public List<Allocation> findAllOrderedByEmail() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Allocation> criteria = cb.createQuery(Allocation.class);
@@ -54,4 +60,41 @@ public class AllocationRepository {
         criteria.select(allocation).orderBy(cb.asc(allocation.get("email")));
         return em.createQuery(criteria).getResultList();
         }
+
+/***************************************************************/
+
+
+public List<Allocation> findTargyaloTerem(){
+    CriteriaBuilder cb = em.getCriteriaBuilder();
+    CriteriaQuery<Allocation> ctQuery = cb.createQuery(Allocation.class);
+    Root<Allocation> allocationRoot = ctQuery.from(Allocation.class);
+    ctQuery.select(allocationRoot).where(cb.equal(allocationRoot.get("teremTipus"),"targyaloterem")).
+            orderBy(cb.asc(allocationRoot.get("start")));
+    return em.createQuery(ctQuery).getResultList();
+}
+
+
+public List<Allocation> findEloadoTerem(){
+    CriteriaBuilder cb = em.getCriteriaBuilder();
+    CriteriaQuery<Allocation> ctQuery = cb.createQuery(Allocation.class);
+    Root<Allocation> allocationRoot = ctQuery.from(Allocation.class);
+    ParameterExpression<String> parameterExpression = cb.parameter(String.class);
+    ctQuery.select(allocationRoot).where(cb.equal(allocationRoot.get("teremTipus"),"eloadoterem")).
+            orderBy(cb.asc(allocationRoot.get("start")));
+    return em.createQuery(ctQuery).getResultList();
+}
+
+
+    public List<Allocation> findZenteTerem(){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Allocation> ctQuery = cb.createQuery(Allocation.class);
+        Root<Allocation> allocationRoot = ctQuery.from(Allocation.class);
+        ctQuery.select(allocationRoot).where(cb.equal(allocationRoot.get("teremTipus"),"zeneterem")).
+                orderBy(cb.asc(allocationRoot.get("start")));
+        return em.createQuery(ctQuery).getResultList();
+    }
+
+
+
+
 }
